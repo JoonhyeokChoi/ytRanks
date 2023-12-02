@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joon Personal Webpage</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NKH57FHFCQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-NKH57FHFCQ');
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <!-- <img src="images/homelogo.png" alt="homelogo" width="130px"> -->
+            <h1>THE JOON DAILY</h1>
+        </header>
+        <nav>
+            <a href="/">HOME</a>
+            <a href="/english">English</a>
+            <a href="/yt_south_korea/index.html">YT KR</a>
+            <a href="/yt_japan/index.html">YT JP</a>
+            <a href="/yt_usa/index.html">YT US</a>
+            <a href="/misc/index.html">MISC(native_template)</a>
+        </nav>
+<!-- AIzaSyAPbfWnm-BpBqCo27-lBykG7tjEdoo61xU -->
+        <main>
+            <div class="mainnews1">
+                <a href="#" onclick=""><h2>Top Keywords in Korea</h2></a>
+                <p>Top 5 keywords being searched in Korea as of {{top_ranks['south_korea']['run_date']}}.<br>
+                <span class="indented-line">#1. {{top_ranks['south_korea']['1']}}</span><br>
+                <span class="indented-line">#2. {{top_ranks['south_korea']['2']}}</span><br>
+                <span class="indented-line">#3. {{top_ranks['south_korea']['3']}}</span><br>
+                <span class="indented-line">#4. {{top_ranks['south_korea']['4']}}</span><br>
+                <span class="indented-line">#5. {{top_ranks['south_korea']['5']}}</span>
+                </p>
+            </div>
+            
+            <div class="mainnews1">
+                <a href="#" onclick=""><h2>Top Keywords in Japan</h2></a>
+                <p>Top 5 keywords being searched in Korea as of {{top_ranks['japan']['run_date']}}.<br>
+                <span class="indented-line">#1. {{top_ranks['japan']['1']}}</span><br>
+                <span class="indented-line">#2. {{top_ranks['japan']['2']}}</span><br>
+                <span class="indented-line">#3. {{top_ranks['japan']['3']}}</span><br>
+                <span class="indented-line">#4. {{top_ranks['japan']['4']}}</span><br>
+                <span class="indented-line">#5. {{top_ranks['japan']['5']}}</span>
+                </p>
+            </div>
+            <div class="mainnews1">
+                <a href="#" onclick=""><h2>Top Keywords in US</h2></a>
+                <p>Top 5 keywords being searched in US as of {{top_ranks['united_states']['run_date']}}.<br>
+                <span class="indented-line">#1. {{top_ranks['united_states']['1']}}</span><br>
+                <span class="indented-line">#2. {{top_ranks['united_states']['2']}}</span><br>
+                <span class="indented-line">#3. {{top_ranks['united_states']['3']}}</span><br>
+                <span class="indented-line">#4. {{top_ranks['united_states']['4']}}</span><br>
+                <span class="indented-line">#5. {{top_ranks['united_states']['5']}}</span>
+                </p>
+            </div>
+        </main>
+        <div class="cards">
+            <div class="card1">
+                <a href="/east_asia/east_asia_news1.html"><h3>YT Videos related to '{{one_rank['south_korea']['keyword']}}'</h3></a>
+                <p>
+                    <ul>
+                        {% for title in one_rank['south_korea']['titles'] %}
+                            <li>{{title|replace('&#39;', "'")|replace('&quot;', '"')}}</li>
+                        {% endfor %}
+                    </ul>
+                </p>
+            </div>
+            <div class="card2">
+                <a href="/emea/emea_news1.html"><h3>YT Videos related to '{{one_rank['japan']['keyword']}}'</h3></a>
+                <p>
+                    <ul>
+                        {% for title in one_rank['japan']['titles'] %}
+                            <li>{{title|replace('&#39;', "'")|replace('&quot;', '"')}}</li>
+                        {% endfor %}
+                    </ul>
+                </p>
+            </div>
+            <div class="card3">
+                <a href="/misc/misc_news1.html"><h3>YT Videos related to '{{one_rank['united_states']['keyword']}}'</h3></a>
+                <p>
+                    <ul>
+                        {% for title in one_rank['united_states']['titles'] %}
+                            <li>{{title|replace('&#39;', "'")|replace('&quot;', '"')}}</li>
+                        {% endfor %}
+                    </ul>
+                </p>
+            </div>
+        </div>
+        <footer>
+            <a href="http://www.google.com" target="_blank">Google It</a>
+        </footer>
+    </div>
+</body>
+</html>

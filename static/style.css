@@ -1,0 +1,185 @@
+.container {
+    /* margin auto will push the element to the end. 
+    So if we use auto for both left and right, 
+    it will align the element in the center */
+    margin-left: auto;
+    margin-right: auto;
+    width: 1280px;
+}
+
+header {
+    height: 68px;
+    text-align: center;
+    padding-top: 0px;
+}
+
+nav {
+    background-color: whitesmoke;
+    text-align: center;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+main {
+    min-height: 300px;
+    display: flex;
+    padding-top: 10px;
+    /* padding-right: 240px;
+    padding-left: 240px; */
+}
+
+.main {
+    display: flex;
+    padding-top: 10px;
+    /* padding-right: 240px;
+    padding-left: 240px; */
+}
+
+footer {
+    text-align: center;
+    background-color: whitesmoke;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+h1 {
+    font-size: 44px;
+    color: black;
+    font-family:'Times New Roman', Times, serif;
+}
+
+h2 {
+    font-size: 30px;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h3 {
+    font-size: 18px;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+p {
+    font-size: 18px;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+li {
+    font-size: 14px;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+    font-size: 18px;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+nav a {
+    text-decoration: none;
+    font-size: 17px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.cards {
+    min-height: 300px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card1 {
+    min-height: 300px;
+    width: 30%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.card2 {
+    min-height: 300px;
+    width: 30%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.card3 {
+    min-height: 300px;
+    width: 30%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.mainnews1 {
+    flex: 1;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 300px;
+}
+
+.mainnews2 {
+    flex: 1;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 300px;
+}
+
+.subpagenews1 {
+    flex: 3;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 300px;
+}
+
+.subpagenews2 {
+    flex: 1;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 300px;
+}
+
+.article {
+    flex: 3;
+    padding-left: 15px;
+    padding-right: 15px;
+    min-height: 600px;
+}
+
+.articleside {
+    flex: 1;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.articlesidenews {
+    flex: 1;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.articleads1 {
+    background-color: grey;
+    padding-left: 15px;
+    padding-right: 15px;
+    min-height: 600px;
+}
+
+.articleads2 {
+    background-color: grey;
+    padding-left: 15px;
+    padding-right: 15px;
+    min-height: 300px;
+}
+
+.articletopad {
+    width: 950px;
+    height: 128px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.indented-line {
+    padding-left: 20px;
+}
