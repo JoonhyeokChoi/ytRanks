@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YT KR</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NKH57FHFCQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-NKH57FHFCQ');
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <!-- <img src="images/homelogo.png" alt="homelogo" width="130px"> -->
+            <h1>THE JOON DAILY</h1>
+        </header>
+        <nav>
+            <a href="/">HOME</a>
+            <a href="/english">English</a>
+            <a href="/yt_kr">YT KR</a>
+            <a href="/yt_japan/index.html">YT JP</a>
+            <a href="/yt_usa/index.html">YT US</a>
+            <a href="/misc/index.html">MISC(native_template)</a>
+        </nav>
+        <div class="main">
+            <div class="article">
+                <h2>Top5 keywords and related YouTube videos in Korea</h2>
+                <p>
+                    Data as of {{all_data_by_4['south_korea']['1']['run_date']}}
+                </p>
+                <ul>
+                    {% for index in "12345" %}
+                        {% if all_data_by_4['south_korea']['1'][index] %}
+                            #{{index}}. {{all_data_by_4['south_korea']['1'][index]['keyword']}}
+                            {% for field in all_data_by_4['south_korea']['1'][index]['fields'] %}
+                                <li>
+                                    <img src="{{ field['thumbnail'] }}" alt="Video Thumbnail" style="width: 180px; height: 135;">
+                                    <a href="https://{{ field['videolink'] }}" target="_blank">{{ field['title'] }}</a>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            <p>No data available for keyword #{{i}}.</p>
+                        {% endif %}
+                    {% endfor %}
+                </ul> 
+            </div>
+            
+            <div class="articleside">
+                <div class="articleads1">Ad Slot</div>
+                <div class="articlesidenews">
+                    <a href="/amer/amer_news1.html"><h3>New org announced, gTech Ads!</h3></a>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor quo nemo esse assumenda error? Quidem cumque asperiores esse quod rerum ipsa sed, officia totam quas, nostrum beatae deserunt nam doloremque.</p>
+                </div>
+                <div class="articlesidenews">
+                    <a href="/sea/sea_news1.html"><h3>Exclusive Interview with Arijit!</h3></a>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor quo nemo esse assumenda error? Quidem cumque asperiores esse quod rerum ipsa sed, officia totam quas, nostrum beatae deserunt nam doloremque.</p>
+                </div>
+                <div class="articleads2">Ad Slot</div>
+            </div>
+        </div>
+        <footer>
+            <a href="http://www.google.com" target="_blank">Google It</a>
+        </footer>
+    </div>
+</body>
+</html>
