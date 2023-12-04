@@ -51,31 +51,66 @@ h1 {
 h2 {
     font-size: 30px;
     color: black;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Apple Gothic', Arial, Helvetica, sans-serif;
 }
 
 h3 {
     font-size: 18px;
     color: black;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Apple Gothic', Arial, Helvetica, sans-serif;
 }
 
 p {
     font-size: 18px;
     color: black;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Apple Gothic', Arial, Helvetica, sans-serif;
+}
+
+ul {
+    padding: 0px;
 }
 
 li {
     font-size: 14px;
     color: black;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Apple Gothic', Arial, Helvetica, sans-serif;
+}
+
+ul li img {
+    width: 150px;
+    height: 112.5px;
+    border-radius: 10px;
+    margin-right: 10px;
+    float: left;
+}
+
+ul li a {
+    font-size: 16px;
+    font-family: 'Apple Gothic', Arial, sans-serif;
+    text-decoration: none;
+    color: #333;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ulcountry {
+    list-style: none;
+    padding: 0;
+}
+
+.licountry {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    overflow: hidden;
 }
 
 a {
     font-size: 18px;
     color: black;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Apple Gothic', Arial, Helvetica, sans-serif;
 }
 
 nav a {
@@ -89,6 +124,11 @@ nav a {
     min-height: 300px;
     display: flex;
     justify-content: space-between;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    overflow: hidden;
 }
 
 .card1 {
@@ -112,11 +152,22 @@ nav a {
     padding-right: 15px;
 }
 
+.keyword {
+    font-size: 18px;
+    color: black;
+    font-family: 'Apple Gothic', Arial, Helvetica, sans-serif;
+}
+
 .mainnews1 {
     flex: 1;
     padding-left: 15px;
     padding-right: 15px;
     height: 300px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
 }
 
 .mainnews2 {
@@ -159,6 +210,13 @@ nav a {
     padding-right: 15px;
 }
 
+.articlea {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    font-family: 'Apple Gothic', Arial, Helvetica, sans-serif;
+}
+
 .articleads1 {
     background-color: grey;
     padding-left: 15px;
@@ -182,4 +240,89 @@ nav a {
 
 .indented-line {
     padding-left: 20px;
+}
+
+@media screen and (max-width: 1180px) {
+    .container, header, nav, main, .cards, footer {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    header h1 {
+        font-size: 32px;
+    }
+
+    .mainnews1, .card1, .card2, .card3 {
+        width: 100%;
+    }
+
+    .card1, .card2, .card3 {
+        min-height: 190px;
+    }
+
+    main, .main, .cards {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .container, header, nav, main, .cards, footer {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    header h1 {
+        font-size: 24px;
+    }
+
+    nav a {
+        text-decoration: none;
+        font-size: 15px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .mainnews1, .card1, .card2, .card3 {
+        width: 100%;
+    }
+
+    .card1, .card2, .card3 {
+        min-height: 180px;
+    }
+
+    main, .main, .cards {
+        display: flex;
+        flex-direction: column;
+    }
+
+    h2 {
+        font-size: 17px;
+        color: black;
+        font-family: 'Apple Gothic', Arial, Helvetica, sans-serif;
+    }
+
+    p {
+        font-size: 15px;
+        color: black;
+        font-family: 'Apple Gothic', Arial, Helvetica, sans-serif;
+    }
+
+    ul li a {
+        font-size: 14px;
+        font-family: 'Apple Gothic', Arial, sans-serif;
+        text-decoration: none;
+        color: #333;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    ul li img {
+        width: 120px;
+        height: 90px;
+        border-radius: 10px;
+        margin-right: 10px;
+        float: left;
+    }
 }

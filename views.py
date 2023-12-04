@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, jsonify, request, render_template
+from flask import Flask, Blueprint, jsonify, request, render_template, redirect, url_for
 import vertexai
 from vertexai.language_models import TextGenerationModel
 from google.oauth2 import service_account
@@ -13,7 +13,7 @@ def get_credentials():
 
     return credentials
 
-def get_all_data_by_4():
+def get_all_data_by_4(country):
     credentials = get_credentials()
     # Construct a BigQuery client object.
     client = bigquery.Client(credentials=credentials, project=credentials.project_id)
@@ -42,6 +42,7 @@ def get_all_data_by_4():
                 videolink
             FROM
                 `ytranks-52d09.ytRanksDaily.ytRanksDailyALL`
+            WHERE country = '{}'
             ORDER BY
                 run_date DESC,
                 hrs,
@@ -51,7 +52,7 @@ def get_all_data_by_4():
         ORDER BY A.run_date DESC, country, country_rank, rank
     """
 
-    query_job = client.query(query)
+    query_job = client.query(query.format(country))
     result = {}
     for row in query_job:
         # if country already exists
@@ -208,4 +209,17 @@ def yt_kr():
     # print(all_data_by_4['japan'])
     return render_template("yt_kr.html", all_data_by_4 = all_data_by_4)
 
+@views.route("/yt/<country>")
+def yt_video(country):
+    print(country)
+    return_template = ""
+    top_ranks_by_ctry = get_top_five_rank_data()
+    all_data_by_4 = get_all_data_by_4(country)
+    if country == "south_korea":
+        return_template = "yt_kr.html"
+    elif country == "japan":
+        return_template = "yt_jp.html"
+    elif country == "united_states":
+        return_template = "yt_us.html"
 
+    return render_template(return_template, all_data_by_4 = all_data_by_4, top_ranks = top_ranks_by_ctry)
