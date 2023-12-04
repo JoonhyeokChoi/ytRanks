@@ -14,6 +14,21 @@
 
         gtag('config', 'G-NKH57FHFCQ');
     </script>
+    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+    <script>
+        window.googletag = window.googletag || {cmd: []};
+
+        var kr_native_top; 
+        var kr_right_top;
+
+        googletag.cmd.push(function() {
+            kr_native_top = googletag.defineSlot('/9474683/joon_ytranks_page/joon_ytranks_kr/joon_ytranks_kr_native', ['fluid'], 'joon_ytranks_kr_native').addService(googletag.pubads());
+            kr_right_top = googletag.defineSlot('/9474683/joon_ytranks_page/joon_ytranks_kr/joon_ytranks_kr_right_top', [[120, 600], [160, 600], [336, 280], [300, 600]], 'joon_ytranks_kr_right_top').addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.pubads().collapseEmptyDivs();
+            googletag.enableServices();
+        });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -35,6 +50,8 @@
                 <p>
                     Data as of {{all_data_by_4['south_korea']['1']['run_date']}}
                 </p>
+                <!-- /9474683/joon_ytranks_page/joon_ytranks_kr/joon_ytranks_kr_native -->
+                <div id="joon_ytranks_kr_native"></div>
                 {% for index in "12345" %}
                     {% if all_data_by_4['south_korea']['1'][index] %}
                     <ul class="ulcountry">
@@ -53,7 +70,12 @@
             </div>
             
             <div class="articleside">
-                <div class="articleads1">Ad Slot</div>
+                <!-- /9474683/joon_ytranks_page/joon_ytranks_kr/joon_ytranks_kr_right_top -->
+                <div id="joon_ytranks_kr_right_top" style="min-width: 120px; min-height: 280px;">
+                    <script>
+                        googletag.cmd.push(function() { googletag.display(kr_right_top); });
+                    </script>
+                </div>
                 <div class="articlesidenews">
                     <a href="/yt/japan"><span class="articlea">Top Keywords in Japan</span></a>
                     <p>Top 5 keywords being searched in Japan as of {{top_ranks['japan']['run_date']}}.<br>

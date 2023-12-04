@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, jsonify, request, render_template, redirect, url_for
+from flask import Flask, Blueprint, jsonify, request, render_template, redirect, url_for, send_from_directory
 import vertexai
 from vertexai.language_models import TextGenerationModel
 from google.oauth2 import service_account
@@ -6,6 +6,10 @@ from google.cloud import bigquery
 import glob
 
 views = Blueprint(__name__, "views")
+
+@views.route('/ads.txt')
+def ads():
+    return send_from_directory(views.root_path, 'ads.txt')
 
 def get_credentials():
     key_path = glob.glob("config/*.json")[0]
