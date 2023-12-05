@@ -14,6 +14,19 @@
 
         gtag('config', 'G-NKH57FHFCQ');
     </script>
+    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+    <script>
+        window.googletag = window.googletag || {cmd: []};
+
+        var us_native_top; 
+
+        googletag.cmd.push(function() {
+            us_native_top = googletag.defineSlot('/9474683/joon_ytranks_page/joon_ytranks_us/joon_ytranks_us_native_top', ['fluid'], 'joon_ytranks_us_native_top').addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.pubads().collapseEmptyDivs();
+            googletag.enableServices();
+        });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -35,6 +48,12 @@
                 <p>
                     Data as of {{all_data_by_4['united_states']['1']['run_date']}}
                 </p>
+                <!-- /9474683/joon_ytranks_page/joon_ytranks_us/joon_ytranks_us_native_top -->
+                <div id="joon_ytranks_us_native_top">
+                    <script>
+                        googletag.cmd.push(function() { googletag.display(us_native_top); });
+                    </script>
+                </div>
                 {% for index in "12345" %}
                     {% if all_data_by_4['united_states']['1'][index] %}
                     <ul class="ulcountry">
