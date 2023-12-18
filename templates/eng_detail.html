@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NKH57FHFCQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-NKH57FHFCQ');
+    </script>
+    <script>
+        function searchWord(resultId) {
+            // Get the input value
+            const wordInput = document.getElementById('searchInput').value;
+        
+            // Make the API call to Flask backend
+            fetch(`/eng/search/${wordInput}/${resultId}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the API response and display results
+                    const searchResultsDiv = document.getElementById('searchResults');
+                    searchResultsDiv.innerHTML = `<p><strong>Definition:</strong> ${data.definition}</p>`;
+                    
+                    if (data.examples.length > 0) {
+                        searchResultsDiv.innerHTML += `<p><strong>Example Sentences:</strong></p>`;
+                        searchResultsDiv.innerHTML += '<ul>';
+                        data.examples.forEach(example => {
+                            searchResultsDiv.innerHTML += `<li>${example}</li>`;
+                        });
+                        searchResultsDiv.innerHTML += '</ul>';
+                    }
+        
+                    // Show the results div
+                    searchResultsDiv.style.display = 'block';
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <!-- <img src="images/homelogo.png" alt="homelogo" width="130px"> -->
+            <h1>THE JOON DAILY</h1>
+        </header>
+        <nav>
+            <a href="/">HOME</a>
+            <div class="dropdown">
+                <a href="#">English</a>
+                <div class="dropdown-content">
+                    <a href="/eng/list">List</a>
+                    <a href="/eng/upload">Upload</a>
+                </div>
+            </div>
+            <a href="/yt/south_korea">YT KR</a>
+            <a href="/yt/japan">YT JP</a>
+            <a href="/yt/united_states">YT US</a>
+            <!-- <a href="/misc/index.html">MISC(native_template)</a> -->
+        </nav>
+        <div class="main">
+            <div class="article">
+                <h2>{{ result['title'] }}</h2>
+                <p>
+                    {{ result['script'] }}
+                </p>
+                <h3>Smart Serach</h3>
+                <label style="display: 'flex';">
+                    <span>Word:</span>
+                    <input id="searchInput" required type="text" style="width:350px;"/>
+                    <button onClick="searchWord(`{{ result['id'] }}`)">Search</button>
+                </label>
+                <div id="searchResults" style="display: none;">
+                    <!-- Results will be displayed here -->
+                </div>
+            </div>
+            <div class="articleside">
+                <div class="articlesidenews">
+                    TBU
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -198,6 +198,11 @@ nav a {
     min-height: 600px;
 }
 
+.article p {
+    height: 500px;
+    overflow-y: auto;
+}
+
 .articleside {
     flex: 1;
     padding-left: 15px;
@@ -325,4 +330,60 @@ nav a {
         margin-right: 10px;
         float: left;
     }
+}
+
+/* Style the dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Style the dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* Style the dropdown links */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    text-align: left;
+    display: block;
+}
+
+/* Change color on hover */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show the dropdown content when hovering over the dropdown link */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+}
+
+.upload-form label {
+    margin-bottom: 8px;
+    font-size: 18px;
+    font-family: 'Apple Gothic', Arial, sans-serif;
+}
+
+.upload-form textarea, input, button {
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+#searchResults p {
+    height: fit-content;
 }

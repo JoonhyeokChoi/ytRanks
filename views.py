@@ -4,6 +4,8 @@ from vertexai.language_models import TextGenerationModel
 from google.oauth2 import service_account
 from google.cloud import bigquery
 import glob
+import secrets
+from datetime import datetime
 
 views = Blueprint(__name__, "views")
 
@@ -200,6 +202,25 @@ def get_top_one_rank_data():
         }
     return result
 
+def generate_random_id():
+    random_id = secrets.token_hex(4)
+    return random_id
+
+def format_resp(resp):
+    lines = resp.split('\n')
+
+    definition = lines[0].split(': ')[1]
+    examples = lines[2:]
+
+    examples = list(filter(None, examples))
+
+    formatted_resp = {
+        'definition':definition,
+        'examples': examples
+    }
+
+    return formatted_resp
+
 @views.route("/")
 def home():
     top_ranks_by_ctry = get_top_five_rank_data()
@@ -227,3 +248,122 @@ def yt_video(country):
         return_template = "yt_us.html"
 
     return render_template(return_template, all_data_by_4 = all_data_by_4, top_ranks = top_ranks_by_ctry)
+
+@views.route("/eng/upload")
+def eng_upload_init():
+    return render_template("eng_upload.html")
+
+@views.route("/eng/list")
+def eng_list():
+    credentials = get_credentials()
+    # Construct a BigQuery client object.
+    client = bigquery.Client(credentials=credentials, project=credentials.project_id)
+    query = """
+        SELECT
+            id,
+            script,
+            title,
+            insert_date
+        FROM
+            `ytranks-52d09.ytRanksDaily.engScripts`
+        ORDER BY insert_date, title
+    """
+
+    query_job = client.query(query)
+    result = []
+    for row in query_job:
+        # Row values can be accessed by field name or index.
+        row_result = {
+            'id': str(row[0]),
+            'script': str(row[1]),
+            'title': str(row[2]),
+            'insert_date': str(row[3])
+        }
+        result.append(row_result)
+
+    return render_template("eng_list.html", query_list = result)
+
+@views.route("/eng/detail/<script_id>")
+def script_detail(script_id):
+    credentials = get_credentials()
+    # Construct a BigQuery client object.
+    client = bigquery.Client(credentials=credentials, project=credentials.project_id)
+    query = """
+        SELECT
+            id,
+            script,
+            title,
+            insert_date
+        FROM
+            `ytranks-52d09.ytRanksDaily.engScripts`
+        WHERE id = '{}'
+    """
+
+    query_job = client.query(query.format(script_id))
+    for row in query_job:
+        result = {
+            'id': str(row[0]),
+            'script': str(row[1]),
+            'title': str(row[2]),
+            'insert_date': str(row[3])
+        }
+    
+    return render_template("eng_detail.html", result = result)
+
+@views.route("/eng/upload_script", methods=['POST'])
+def upload_script():
+    title = request.form.get('title')
+    script_content = request.form.get('script')
+    script_id = generate_random_id()
+    insert_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    credentials = get_credentials()
+    # Construct a BigQuery client object.
+    client = bigquery.Client(credentials=credentials, project=credentials.project_id)
+
+    query = """
+        INSERT INTO `ytranks-52d09.ytRanksDaily.engScripts`
+        VALUES (@script_id, @script_content, @title, @insert_date)
+    """
+    
+    job_config = bigquery.QueryJobConfig(
+        query_parameters=[
+            bigquery.ScalarQueryParameter("script_id", "STRING", script_id),
+            bigquery.ScalarQueryParameter("script_content", "STRING", script_content),
+            bigquery.ScalarQueryParameter("title", "STRING", title),
+            bigquery.ScalarQueryParameter("insert_date", "STRING", insert_date),
+        ]
+    )
+
+    query_job = client.query(query, job_config=job_config) 
+
+    errors = query_job.errors
+    if errors:
+        for error in errors:
+            query_result = {"result": error['message']}
+        return query_result
+    else:
+        query_result = {"result": "success"}
+        return query_result
+    
+@views.route("/eng/search/<input>/<id>", methods = ['GET'])
+def search_word(input, id):
+    vertexai.init(
+        project='ytranks-52d09', 
+        location='us-central1',
+        credentials=get_credentials()
+    )
+    prompt = f"Define the word '{input}'. Provide three example sentences. The response format is 'Definition: definition of the word\n Example sentences:\n 1. Example1\n2. Example2\n3. Example3'"
+    parameters = {
+        "temperature": 0.3,  # Temperature controls the degree of randomness in token selection.
+        "max_output_tokens": 256,  # Token limit determines the maximum amount of text output.
+        "top_p": 0.8,  # Tokens are selected from most probable to least until the sum of their probabilities equals the top_p value.
+        "top_k": 40,  # A top_k of 1 means the selected token is the most probable among all tokens.
+    }
+
+    model = TextGenerationModel.from_pretrained("text-bison@001")
+    response = model.predict(
+        prompt,
+        **parameters,
+    )
+    return jsonify(format_resp(response.text))

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NKH57FHFCQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-NKH57FHFCQ');
+    </script>
+    <script>
+        function redirectToDetail(scriptId) {
+            // Redirect to /eng/detail with the script ID parameter
+            window.location.href = `/eng/detail/${scriptId}`;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <!-- <img src="images/homelogo.png" alt="homelogo" width="130px"> -->
+            <h1>THE JOON DAILY</h1>
+        </header>
+        <nav>
+            <a href="/">HOME</a>
+            <div class="dropdown">
+                <a href="#">English</a>
+                <div class="dropdown-content">
+                    <a href="/eng/list">List</a>
+                    <a href="/eng/upload">Upload</a>
+                </div>
+            </div>
+            <a href="/yt/south_korea">YT KR</a>
+            <a href="/yt/japan">YT JP</a>
+            <a href="/yt/united_states">YT US</a>
+            <!-- <a href="/misc/index.html">MISC(native_template)</a> -->
+        </nav>
+        <div class="main">
+            <div class="article">
+                <h2>Your submitted script list</h2>
+                <ul class="ulcountry"> 
+                    {% for list in query_list %}
+                        <li class="licountry" onclick="redirectToDetail(`{{ list['id'] }}`)">
+                            {{ list['title'] }}
+                            {{ list['insert_date'] }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
