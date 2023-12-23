@@ -249,6 +249,21 @@ def yt_video(country):
 
     return render_template(return_template, all_data_by_4 = all_data_by_4, top_ranks = top_ranks_by_ctry)
 
+@views.route("/yt/json/<country>", methods = ['GET'])
+def yt_json_video(country):
+    print(country)
+    # return_template = ""
+    # top_ranks_by_ctry = get_top_five_rank_data()
+    all_data_by_4 = get_all_data_by_4(country)
+    # if country == "south_korea":
+    #     return_template = "yt_kr.html"
+    # elif country == "japan":
+    #     return_template = "yt_jp.html"
+    # elif country == "united_states":
+    #     return_template = "yt_us.html"
+
+    return jsonify(all_data_by_4[country]["1"])
+
 @views.route("/eng/upload")
 def eng_upload_init():
     return render_template("eng_upload.html")
