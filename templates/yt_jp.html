@@ -22,8 +22,8 @@
       var jp_right_top;
 
       googletag.cmd.push(function() {
-        jp_native_top = googletag.defineSlot('/9474683/joon_ytranks_page/joon_ytranks_jp/joon_ytranks_jp_native', ['fluid'], 'joon_ytranks_jp_native').addService(googletag.pubads());
         jp_right_top = googletag.defineSlot('/9474683/joon_ytranks_page/joon_ytranks_jp/joon_ytranks_jp_right_top', [[120, 600], [160, 600], [336, 280], [300, 600]], 'joon_ytranks_jp_right_top').addService(googletag.pubads());
+        jp_right_bottom = googletag.defineSlot('/9474683/joon_ytranks_page/joon_ytranks_jp/joon_ytranks_jp_right_bottom', [[336, 280], [180, 150], [250, 250], [300, 250]], 'jp_right_bottom').addService(googletag.pubads());
         googletag.pubads().enableSingleRequest();
         googletag.pubads().collapseEmptyDivs();
         googletag.enableServices();
@@ -56,8 +56,6 @@
                 <p>
                     Data as of {{all_data_by_4['japan']['1']['run_date']}}
                 </p>
-                <!-- /9474683/joon_ytranks_page/joon_ytranks_jp/joon_ytranks_jp_native -->
-                <div id="joon_ytranks_jp_native"></div>
                 {% for index in "12345" %}
                     {% if all_data_by_4['japan']['1'][index] %}
                     <ul class="ulcountry">
@@ -77,11 +75,7 @@
             
             <div class="articleside">
                 <!-- /9474683/joon_ytranks_page/joon_ytranks_jp/joon_ytranks_jp_right_top -->
-                <div id="joon_ytranks_jp_right_top" style="min-width: 120px; min-height: 280px;">
-                    <script>
-                        googletag.cmd.push(function() { googletag.display(jp_right_top); });
-                    </script>
-                </div>
+                <div id="joon_ytranks_jp_right_top" style="min-width: 120px; min-height: 280px;"></div>
                 <div class="articlesidenews">
                     <a href="/yt/south_korea"><span class="articlea">Top Keywords in Korea</span></a>
                     <p>Top 5 keywords being searched in Korea as of {{top_ranks['south_korea']['run_date']}}.<br>
@@ -102,7 +96,12 @@
                         <span class="indented-line">#5. {{top_ranks['united_states']['5']}}</span>
                     </p>
                 </div>
-                <div class="articleads2">Ad Slot</div>
+                <!-- /9474683/joon_ytranks_page/joon_ytranks_jp/joon_ytranks_jp_right_bottom -->
+                <div id="joon_ytranks_jp_right_bottom" style="min-width: 180px; min-height: 150px;">
+                    <script>
+                        googletag.cmd.push(function() { googletag.display(jp_right_top); });
+                    </script>
+                </div>
             </div>
         </div>
         <footer>

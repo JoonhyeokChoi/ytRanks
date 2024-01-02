@@ -198,10 +198,10 @@ nav a {
     min-height: 600px;
 }
 
-.article p {
+/* .article p {
     height: 500px;
     overflow-y: auto;
-}
+} */
 
 .articleside {
     flex: 1;
