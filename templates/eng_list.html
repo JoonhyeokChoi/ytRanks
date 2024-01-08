@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List Page</title>
+    <script src="{{ url_for('static', filename='script_signout.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NKH57FHFCQ"></script>
     <script>
@@ -18,6 +23,27 @@
         function redirectToDetail(scriptId) {
             // Redirect to /eng/detail with the script ID parameter
             window.location.href = `/eng/detail/${scriptId}`;
+        };
+    </script>
+    <script>
+        // TODO(DEVELOPER): Paste your firebaseConfig{} snippet here. Follow these instructions to
+        // find your config object: https://support.google.com/firebase/answer/7015592#web
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyAPbfWnm-BpBqCo27-lBykG7tjEdoo61xU",
+          authDomain: "ytranks-52d09.firebaseapp.com",
+          projectId: "ytranks-52d09",
+          storageBucket: "ytranks-52d09.appspot.com",
+          messagingSenderId: "905955664846",
+          appId: "1:905955664846:web:0775658458e87cc23f419f",
+          measurementId: "G-NKH57FHFCQ"
+        };
+        firebase.initializeApp(firebaseConfig);
+    
+        if (typeof firebase === 'undefined') {
+          const msg = "Please provide your Firebase configuration details. See instructions in templates/index.html.";
+          console.log(msg);
+          alert(msg);
         }
     </script>
 </head>
@@ -43,7 +69,10 @@
         </nav>
         <div class="main">
             <div class="article">
-                <h2>Your submitted script list</h2>
+                <div>
+                    <h2>Your submitted script list</h2>
+                    <button id="sign-out">Sign Out</button>
+                </div>
                 <ul class="ulcountry"> 
                     {% for list in query_list %}
                         <li class="licountry" onclick="redirectToDetail(`{{ list['id'] }}`)">

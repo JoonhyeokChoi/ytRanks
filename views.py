@@ -1,14 +1,16 @@
-from flask import Flask, Blueprint, jsonify, request, render_template, redirect, url_for, send_from_directory
+from flask import Flask, Blueprint, jsonify, request, render_template, redirect, url_for, send_from_directory, session
 import vertexai
 from vertexai.language_models import TextGenerationModel
 from google.oauth2 import service_account
+from google.auth.transport import requests
+import google.oauth2.id_token
 from google.cloud import bigquery
 import glob
 import secrets
 from datetime import datetime
 
 views = Blueprint(__name__, "views")
-
+firebase_request_adapter = requests.Request()
 @views.route('/ads.txt')
 def ads():
     return send_from_directory(views.root_path, 'ads.txt')
@@ -266,37 +268,60 @@ def yt_json_video(country):
 
 @views.route("/eng/upload")
 def eng_upload_init():
-    return render_template("eng_upload.html")
+    id_token = request.cookies.get("token")
+    if id_token:
+        return render_template("eng_upload.html")
+    else:
+        return render_template("login.html")
 
 @views.route("/eng/list")
 def eng_list():
-    credentials = get_credentials()
-    # Construct a BigQuery client object.
-    client = bigquery.Client(credentials=credentials, project=credentials.project_id)
-    query = """
-        SELECT
-            id,
-            script,
-            title,
-            insert_date
-        FROM
-            `ytranks-52d09.ytRanksDaily.engScripts`
-        ORDER BY insert_date, title
-    """
+    id_token = request.cookies.get("token")
+    if id_token:
+        print('user signed in')
+        credentials = get_credentials()
+        try:
+            claims = google.oauth2.id_token.verify_firebase_token(
+                    id_token, firebase_request_adapter
+                )
+            user_id = claims["user_id"]
+            print(user_id)
+        except ValueError as exc:
+            # This will be raised if the token is expired or any other
+            # verification checks fail.
+            error_message = str(exc)
+        # Construct a BigQuery client object.
+        client = bigquery.Client(credentials=credentials, project=credentials.project_id)
+        query = """
+            SELECT
+                id,
+                script,
+                title,
+                insert_date
+            FROM
+                `ytranks-52d09.ytRanksDaily.engScripts`
+            WHERE 
+                user_id = '{}'
+            ORDER BY insert_date, title
+        """
 
-    query_job = client.query(query)
-    result = []
-    for row in query_job:
-        # Row values can be accessed by field name or index.
-        row_result = {
-            'id': str(row[0]),
-            'script': str(row[1]),
-            'title': str(row[2]),
-            'insert_date': str(row[3])
-        }
-        result.append(row_result)
+        query_job = client.query(query.format(user_id))
+        result = []
+        for row in query_job:
+            # Row values can be accessed by field name or index.
+            row_result = {
+                'id': str(row[0]),
+                'script': str(row[1]),
+                'title': str(row[2]),
+                'insert_date': str(row[3])
+            }
+            result.append(row_result)
 
-    return render_template("eng_list.html", query_list = result)
+        return render_template("eng_list.html", query_list = result)
+    else:
+        print('user signed out')
+        return render_template("login.html")
+    
 
 @views.route("/eng/detail/<script_id>")
 def script_detail(script_id):
@@ -332,13 +357,26 @@ def upload_script():
     script_id = generate_random_id()
     insert_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
+    id_token = request.cookies.get("token")
+    if id_token:
+        print('user signed in')
+        try:
+            claims = google.oauth2.id_token.verify_firebase_token(
+                    id_token, firebase_request_adapter
+                )
+            user_id = claims["user_id"]
+            print(user_id)
+        except ValueError as exc:
+            # This will be raised if the token is expired or any other
+            # verification checks fail.
+            error_message = str(exc)
     credentials = get_credentials()
     # Construct a BigQuery client object.
     client = bigquery.Client(credentials=credentials, project=credentials.project_id)
 
     query = """
         INSERT INTO `ytranks-52d09.ytRanksDaily.engScripts`
-        VALUES (@script_id, @script_content, @title, @insert_date)
+        VALUES (@script_id, @script_content, @title, @insert_date, @user_id)
     """
     
     job_config = bigquery.QueryJobConfig(
@@ -347,6 +385,7 @@ def upload_script():
             bigquery.ScalarQueryParameter("script_content", "STRING", script_content),
             bigquery.ScalarQueryParameter("title", "STRING", title),
             bigquery.ScalarQueryParameter("insert_date", "STRING", insert_date),
+            bigquery.ScalarQueryParameter("user_id", "STRING", user_id),
         ]
     )
 
