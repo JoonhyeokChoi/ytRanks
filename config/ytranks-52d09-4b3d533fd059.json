@@ -1,13 +1,3 @@
 {
-  "type": "service_account",
-  "project_id": "ytranks-52d09",
-  "private_key_id": "4b3d533fd059d5daeb3893c05920f14d34a614f0",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDNRAI2pInj+n3S\nYsiZna75IfZ28MCbVBfTWTbYWBDhSTqBsL+g+D+S35KLddlT1gkrdmExuSQ/s1Ig\nebiJwoiY/6KEMdfVirlH1nMqmfHUaLAWbBH9iEnnwszFi0JhXu68llZLPAFNH9T5\nwndaynt4XIXNLOf8xZHNSmW7QH04A+1XWC2bLced8+cLxE1+p6K16Ay/BbBFhxrh\nOs+002Na8ltKrZdAvKiH9WrClf8LfiD8yPhMy4BAhYS8DEkmHNnqQzoiyI6/fvLs\nH//lM6amc/VfAOlbF2Op+0RjhFQKAWeVEKhnGt599Sx8OsIKq2jRlmX7nMzI/GCH\nKC6X9yyjAgMBAAECggEAC3PObc8LVHlu2LSjPZLjJspCzosLK/9qnuOc4EA1nOQx\ni/fZETmYjnDD490M5ZUNCOw/av9J6vXt0JsJ9UGxzluA7UA8qxDk2oG4Bjn1mKTI\nok+gR1V5ziD7vM/Swc0Co+n9YZA1AGEUyGSVtS6T6fi7jGGDhgJd6qbKe0KTWfMg\nirA9WpkQjAsJXy4yXtaHOguxn4h1qh40rjjil50qUH9CQrvjnCeNTS4ujrgyBpAZ\nX6xVjVoZXVGsK8lfsNPO7AtqkOq4cTKJpepksmECSqRNQEMlBjp5er8APaL3QxMm\npUxGEBi/pdPn5RgDBgSCGzpNd3m5p1N75AaIc0R3iQKBgQDupIqwdiQ8T/ZcrdKl\nS8ICT/fVUJvkJN00E8WtsA6sWfS9HpvIwn5ysNaATp1+PVYIe6b3gysikOWx7NZv\n2VLWzqLGkjiBMMatKR1KZdmW98Bnq1DTl1ZyT4Bx+xvUVWvbRliFDjgycccDOw/v\n6KUQC6y9VY88M+wz/v1fUF4S6QKBgQDcMf7PPtevbGembTyi+v/OfwIguz74lHkd\n+jDZT5fybtW6UU48+DFvp3qCobS/w2an+b/ddA+QuxGYG2Fu3f6k2L3HYZB7n2JX\n3Pt0b91bfsV78wVx6OUx0b9Chd5xEeqq6A1IZI5BTvfi0nv97G2bMsDT93+19xsU\nqDQEm6dTqwKBgBeoZjtiKutzveeoL8bFQOF7zgTurdWrNeawwxsZ5gp+DH4nJ6h6\nZ5C1KT6lDIX0TLAgmgfVkBQoKy09XnDOKaEz8P0gh8t+62NFPSsf97c4rnFYkXW4\nfhBtAz3JeBPPuBaP3byrETUnBGS0mTreZGa30ZMfhUihmRv6fmHRlNHpAoGBAKO2\ncDL6EDaXLMEqOokagRKwj45yaTE8gohtOeB4MwrGqRVr2fWuumK/bHCvdcmVqD9/\nis1Fu0TqMPycbuaVGvzJQOB6g4fGSsH0xOgfO78JFB9B4mx8sdtGjSMSkP4UShtj\niGyohrO72MXFpPZ30E4xf/iY7VUHMhU7seEzMUcdAoGAeOqN9T13QjiwLViJDyTS\nLlkC25K6H6QL5Zzk5mvEOsqHmUM2VJOWqP3V8KL/pqjKumlDIe8mK5HhgIFpVtS5\n5fe5GPpsLzlPiyq8ReHx1lDAipjjqS5RB+2C3o8PRoEhWZzFBkIvRECi0QTTiuK2\n0YzPHWMjUzuiXYkF8EYubZI=\n-----END PRIVATE KEY-----\n",
-  "client_email": "ytranksserviceaccount@ytranks-52d09.iam.gserviceaccount.com",
-  "client_id": "115896673252142726330",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ytranksserviceaccount%40ytranks-52d09.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
+
 }
