@@ -45,10 +45,11 @@ footer {
 h1 {
     font-size: 44px;
     color: black;
-    font-family:'Times New Roman', Times, serif;
+    font-family:'Apple Gothic', Arial, Helvetica, sans-serif;
 }
 
 h2 {
+    text-align: center;
     font-size: 30px;
     color: black;
     font-family: 'Apple Gothic', Arial, Helvetica, sans-serif;
@@ -393,4 +394,69 @@ nav a {
 
 #searchResults p {
     height: fit-content;
+}
+
+#game {
+    width: 400px;
+    height: 500px;
+    border: 1px solid black;
+    margin: auto;
+    overflow: hidden;
+}
+
+#game_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#block {
+    width: 50px;
+    height: 500px;
+    background:radial-gradient(lightgreen 50%, green);
+    position: relative;
+    left: 400px;
+    animation: block 2s infinite linear;
+}
+
+@keyframes block {
+    0%{left: 400px}
+    100%{left: -50px}
+}
+
+#hole {
+    width: 50px;
+    height: 150px;
+    background-color: white;
+    position: relative;
+    left: 400px;
+    top: -500px;
+    animation: block 2s infinite linear;
+}
+
+#character {
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    position: absolute;
+    top: 200px;
+    border-radius: 50%;
+}
+
+.message {
+	position: absolute;
+	z-index: 10;
+	color: black;
+	top: 30%;
+	left: 50%;
+	font-size: 2em;
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+.messageStyle{
+	background: white;
+	padding: 30px;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	border-radius: 5%;
 }

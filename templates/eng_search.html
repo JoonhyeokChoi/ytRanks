@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Page</title>
+    <title>Wordwise AI</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NKH57FHFCQ"></script>
@@ -15,20 +15,20 @@
         gtag('config', 'G-NKH57FHFCQ');
     </script>
     <script>
-        function searchWord(resultId) {
+        function searchWord() {
             // Get the input value
             const wordInput = document.getElementById('searchInput').value;
             const searchResultsDiv = document.getElementById('searchResults');
             searchResultsDiv.innerHTML = '<p>Searching...</p>';
             searchResultsDiv.style.display = 'block';
-        
+            console.log(wordInput);
             // Make the API call to Flask backend
-            fetch(`/eng/search/${wordInput}/${resultId}`)
+            fetch(`/eng/search/gemini/${wordInput}`)
                 .then(response => response.json())
                 .then(data => {
                     // Handle the API response and display results
                     searchResultsDiv.innerHTML = `<p><strong>Definition:</strong> ${data.definition}</p>`;
-                    
+                    searchResultsDiv.innerHTML += `<p><strong>Circumstances:</strong> ${data.circumstances}</p>`;
                     if (data.examples.length > 0) {
                         searchResultsDiv.innerHTML += `<p><strong>Example Sentences:</strong></p>`;
                         searchResultsDiv.innerHTML += '<ul>';
@@ -54,38 +54,42 @@
         <nav>
             <a href="/">HOME</a>
             <div class="dropdown">
+                <a href="#">YT Ranks</a>
+                <div class="dropdown-content">
+                    <a href="/yt/south_korea">YT KR</a>
+                    <a href="/yt/japan">YT JP</a>
+                    <a href="/yt/united_states">YT US</a>
+                </div>
+            </div>
+            <div class="dropdown">
                 <a href="#">English</a>
                 <div class="dropdown-content">
-                    <a href="/eng/list">List</a>
-                    <a href="/eng/upload">Upload</a>
+                    <a href="/eng/search">Search</a>
+                    <!-- <a href="/eng/list">Review</a>
+                    <a href="/eng/upload">History</a> -->
                 </div>
             </div>
-            <a href="/yt/south_korea">YT KR</a>
-            <a href="/yt/japan">YT JP</a>
-            <a href="/yt/united_states">YT US</a>
-            <!-- <a href="/misc/index.html">MISC(native_template)</a> -->
+            <div class="dropdown">
+                <a href="#">Games</a>
+                <div class="dropdown-content">
+                    <a href="/game/floppy">Floppy Ball</a>
+                    <a href="/game/coin">Coin Toss</a>
+                </div>
+            </div>            
         </nav>
-        <div class="main">
-            <div class="eng_article">
-                <h3>Smart Serach</h3>
-                <label style="display: 'flex';">
-                    <span>Word or expression:</span>
-                    <input id="searchInput" required type="text" style="width:350px;"/>
-                    <button onClick="searchWord(`{{ result['id'] }}`)">Search</button>
-                </label>
-                <div id="searchResults" style="display: none;">
-                </div>
-                <h2>{{ result['title'] }}</h2>
-                <p>
-                    {{ result['script'] }}
-                </p>
+        <main>
+            <h2>Search words/expressions wise with Gemini Pro</h2>
+            <label style="display: flex; align-items: center; justify-content: center;">
+                <span style="font-family: Arial, Helvetica, sans-serif;">Word/Expression:</span>
+                <input id="searchInput" required type="text" style="width: 350px; margin-bottom: 0px; margin-left: 3px;">
+                <button onClick="searchWord()" style="margin-bottom: 0px; margin-left: 1em;">Search</button>
+            </label>
+            <div id="searchResults" style="display: none;">
             </div>
-            <div class="articleside">
-                <div class="articlesidenews">
-                    TBU
-                </div>
-            </div>
-        </div>
+        </main>
+        <footer>
+            <a href="http://www.google.com" target="_blank">Google It</a>
+        </footer>
     </div>
 </body>
 </html>

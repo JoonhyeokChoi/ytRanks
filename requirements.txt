@@ -9,7 +9,7 @@ Flask==3.0.0
 Flask-Cors==4.0.0
 google-api-core==2.14.0
 google-auth==2.24.0
-google-cloud-aiplatform==1.36.4
+google-cloud-aiplatform==1.42.1
 google-cloud-bigquery==3.13.0
 google-cloud-core==2.3.3
 google-cloud-resource-manager==1.10.4

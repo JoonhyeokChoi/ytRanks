@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" onclick="jump()">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/favicon.ico"/>
+    <title>Flappy Bird Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='game1_script.js') }}" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <!-- <img src="images/homelogo.png" alt="homelogo" width="130px"> -->
+            <h1>JOON TEST PAGE</h1>
+        </header>
+        <nav>
+            <a href="/">HOME</a>
+            <div class="dropdown">
+                <a href="#">YT Ranks</a>
+                <div class="dropdown-content">
+                    <a href="/yt/south_korea">YT KR</a>
+                    <a href="/yt/japan">YT JP</a>
+                    <a href="/yt/united_states">YT US</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#">English</a>
+                <div class="dropdown-content">
+                    <a href="/eng/search">Search</a>
+                    <!-- <a href="/eng/list">Review</a>
+                    <a href="/eng/upload">History</a> -->
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#">Games</a>
+                <div class="dropdown-content">
+                    <a href="/game/floppy">Floppy Ball</a>
+                    <a href="/game/coin">Coin Toss</a>
+                </div>
+            </div> 
+        </nav>
+        <div id="game_container">
+            <div id="game">
+                <div class="message">
+                    Click Play To Start Game <p>Click anywhere to Control</p>
+                </div>
+                <div id="block"></div>
+                <div id="hole"></div>
+                <div id="character"></div>
+            </div>
+            <button id="playButton">Play</button>
+        </div>
+    </div>
+</body>
+</html>

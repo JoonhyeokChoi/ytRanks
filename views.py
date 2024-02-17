@@ -1,5 +1,6 @@
 from flask import Flask, Blueprint, jsonify, request, render_template, redirect, url_for, send_from_directory, session
 import vertexai
+from vertexai.preview.generative_models import GenerativeModel
 from vertexai.language_models import TextGenerationModel
 from google.oauth2 import service_account
 from google.auth.transport import requests
@@ -209,15 +210,20 @@ def generate_random_id():
     return random_id
 
 def format_resp(resp):
-    lines = resp.split('\n')
+    resp = resp.replace('*', '')
+    tmp_lines = resp.split('\n')
+    lines = list(filter(lambda x: x != '', tmp_lines))
+    print(lines)
 
     definition = lines[0].split(': ')[1]
-    examples = lines[2:]
+    circumstances = lines[1].split(':')[1]
+    examples = lines[3:]
 
     examples = list(filter(None, examples))
 
     formatted_resp = {
         'definition':definition,
+        'circumstances':circumstances,
         'examples': examples
     }
 
@@ -266,10 +272,35 @@ def yt_json_video(country):
 
     return jsonify(all_data_by_4[country]["1"])
 
+@views.route("/game/floppy")
+def game():
+    return render_template("game1.html")
+
+@views.route("/game/coin")
+def game2():
+    return render_template("game2.html")
+
+@views.route("/eng/search")
+def eng_search():
+    return render_template("eng_search.html")
+
 @views.route("/eng/upload")
 def eng_upload_init():
     id_token = request.cookies.get("token")
     if id_token:
+        print('user signed in')
+        try:
+            claims = google.oauth2.id_token.verify_firebase_token(
+                    id_token, firebase_request_adapter
+                )
+            user_id = claims["user_id"]
+            print(user_id)
+        except ValueError as exc:
+            # This will be raised if the token is expired or any other
+            # verification checks fail.
+            error_message = str(exc)
+            print(error_message)
+            return render_template("login.html")
         return render_template("eng_upload.html")
     else:
         return render_template("login.html")
@@ -290,6 +321,8 @@ def eng_list():
             # This will be raised if the token is expired or any other
             # verification checks fail.
             error_message = str(exc)
+            print(error_message)
+            return render_template("login_expired.html")
         # Construct a BigQuery client object.
         client = bigquery.Client(credentials=credentials, project=credentials.project_id)
         query = """
@@ -322,6 +355,27 @@ def eng_list():
         print('user signed out')
         return render_template("login.html")
     
+
+@views.route("/eng/search/gemini/<input>", methods = ['GET'])
+def search_word_gemini(input):
+    vertexai.init(
+        project='wordwise-ai', 
+        location='us-central1'
+    )
+    prompt = f"Define the word '{input}' and explain under what circumstance we use the word. Provide three example sentences. Follow this response format which is 'Definition: definition\n Circumstances: circumstances\n Example sentences:\n1. Example1\n2. Example2\n3. Example3'. No special characters except ':' and no multiple '\n'."
+    # parameters = {
+    #     "temperature": 0.3,  # Temperature controls the degree of randomness in token selection.
+    #     "max_output_tokens": 256,  # Token limit determines the maximum amount of text output.
+    #     "top_p": 0.8,  # Tokens are selected from most probable to least until the sum of their probabilities equals the top_p value.
+    #     "top_k": 40,  # A top_k of 1 means the selected token is the most probable among all tokens.
+    # }
+
+    model = GenerativeModel("gemini-pro")
+    chat = model.start_chat()
+
+    response = chat.send_message(prompt)
+
+    return jsonify(format_resp(response.text))
 
 @views.route("/eng/detail/<script_id>")
 def script_detail(script_id):

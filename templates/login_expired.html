@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+  <title>Login Refresh</title>
+  <script src="{{ url_for('static', filename='script_expired.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.13.0/firebase-auth-compat.js"></script>
+  <!-- [START gae_python38_auth_include_firebaseui] -->
+  <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+  <!-- [END gae_python38_auth_include_firebaseui] -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NKH57FHFCQ"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-NKH57FHFCQ');
+  </script>
+  <script>
+    // TODO(DEVELOPER): Paste your firebaseConfig{} snippet here. Follow these instructions to
+    // find your config object: https://support.google.com/firebase/answer/7015592#web
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyAPbfWnm-BpBqCo27-lBykG7tjEdoo61xU",
+      authDomain: "ytranks-52d09.firebaseapp.com",
+      projectId: "ytranks-52d09",
+      storageBucket: "ytranks-52d09.appspot.com",
+      messagingSenderId: "905955664846",
+      appId: "1:905955664846:web:0775658458e87cc23f419f",
+      measurementId: "G-NKH57FHFCQ"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    if (typeof firebase === 'undefined') {
+      const msg = "Please provide your Firebase configuration details. See instructions in templates/index.html.";
+      console.log(msg);
+      alert(msg);
+    }
+  </script>
+</head>
+<body>
+    <nav>
+        <h2>Login to see the list</h2>
+        <!-- [START gae_python38_auth_firebase_html] -->
+        <div id="firebaseui-auth-container"></div>
+        <div id="login-info" hidden=true>
+            <h3>Login succeeded. Redirecting...</h3>
+        </div>
+    </nav>
+    <!-- [END gae_python38_auth_firebase_html] -->
+</body>
+</html>
