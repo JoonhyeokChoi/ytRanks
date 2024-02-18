@@ -21,7 +21,38 @@
         var main_bottom;
 
         googletag.cmd.push(function() {
-            main_bottom = googletag.defineSlot('/9474683/joon_ytranks_page/joon_ytranks_home/joon_ytranks_home_main_bottom_leaderboard', [[970, 90], [728, 90]], 'main_bottom').addService(googletag.pubads());
+            var REFRESH_KEY = 'refresh';
+            var REFRESH_VALUE = 'true';
+
+            main_bottom = googletag.defineSlot('/9474683/joon_ytranks_page/joon_ytranks_home/joon_ytranks_home_main_bottom_leaderboard', [[970, 90], [728, 90], [300, 250]], 'main_bottom')
+                            .setTargeting(REFRESH_KEY, REFRESH_VALUE)
+                            .addService(googletag.pubads());
+            
+            const mapping = googletag.sizeMapping()
+            .addSize(
+                [1180, 800],
+                [
+                    [970, 90],
+                    [728, 90]
+                ]
+            )
+            .addSize([728, 500], [728, 90])
+            .addSize([300, 250], [300, 250])
+            .addSize([0, 0], [])
+            .build();
+
+            main_bottom.defineSizeMapping(mapping);
+
+            var SECONDS_TO_WAIT_AFTER_VIEWABILITY = 90;
+
+            googletag.pubads().addEventListener('impressionViewable', function(event) {
+                var slot = event.slot;
+                if (slot.getTargeting(REFRESH_KEY).indexOf(REFRESH_VALUE) > -1) {
+                    setTimeout(() => {
+                       googletag.pubads().refresh([slot]); 
+                    }, SECONDS_TO_WAIT_AFTER_VIEWABILITY * 1000);
+                }
+            });
             googletag.pubads().enableSingleRequest();
             googletag.pubads().collapseEmptyDivs();
             googletag.enableServices();

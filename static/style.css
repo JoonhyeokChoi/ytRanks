@@ -35,6 +35,24 @@ main {
     padding-left: 240px; */
 }
 
+.eng_main {
+    min-height: 200px;
+    /* display: ; */
+    /* padding-top: 10px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.eng_main #searchInput {
+    width: 350px;
+}
+
+.eng_main #wordExpressionLabel {
+    font-size: 18px;
+}
+
 footer {
     text-align: center;
     background-color: whitesmoke;
@@ -337,6 +355,14 @@ nav a {
         border-radius: 10px;
         margin-right: 10px;
         float: left;
+    }
+
+    .eng_main #searchInput {
+        width: 200px;
+    }
+
+    .eng_main #wordExpressionLabel {
+        font-size: 14px;
     }
 }
 
